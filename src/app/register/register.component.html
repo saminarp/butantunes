@@ -1,0 +1,66 @@
+<mat-card>
+  <mat-card-content>
+    {{ registerUser | json }}
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+      <h2>Register</h2>
+      <mat-error *ngIf="warning"> {{ warning }}</mat-error
+      ><br />
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="User Name"
+          name="username"
+          [(ngModel)]="registerUser.userName"
+          required
+          autofocus
+          autocomplete="off"
+        />
+        <mat-error>Please provide a valid user name</mat-error> </mat-form-field
+      ><br />
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          name="password"
+          [(ngModel)]="registerUser.password"
+          required
+        />
+        <mat-error>Please provide a valid password</mat-error> </mat-form-field
+      ><br />
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          color="accent"
+          type="password"
+          placeholder="Password"
+          name="password2"
+          [(ngModel)]="registerUser.password2"
+          required
+        />
+        <mat-error>Please provide a valid password</mat-error> </mat-form-field
+      ><br />
+      <button
+        mat-raised-button
+        color="accent"
+        type="submit"
+        [disabled]="loading ? true : false"
+      >
+        <mat-icon>account_box</mat-icon>
+        <div *ngIf="loading; then thenBlock; else elseBlock"></div>
+        <ng-template #thenBlock>
+          <span>&nbsp;&nbsp;&nbsp;Processing Request</span>
+        </ng-template>
+        <ng-template #elseBlock>
+          <span>&nbsp;&nbsp;&nbsp;Register</span>
+        </ng-template>
+      </button>
+    </form>
+  </mat-card-content>
+  <div class="success" *ngIf="success">
+    Registration Successful. Proceed to<br /><br />
+    <a mat-raised-button color="accent" routerLink="/login">
+      <mat-icon>login</mat-icon>&nbsp;&nbsp;&nbsp;Login
+    </a>
+  </div>
+</mat-card>

@@ -1,19 +1,19 @@
 <div class="navbar-container">
   <!-- Top navbar -->
   <mat-toolbar class="navbar" color="primary">
-    <button mat-icon-button (click)="snav.toggle()">
+    <button *ngIf="token" mat-icon-button (click)="snav.toggle()">
       <mat-icon color="accent">menu</mat-icon>
     </button>
 
-    <a class="navbar-brand" matTooltip="Home" routerLink="/">
+    <a class="navbar-brand" matTooltip="Home">
       <h1>Seneca Music</h1>
     </a>
 
     <span class="navbar-spacer"></span>
 
-    <button mat-button [matMenuTriggerFor]="userMenu">
+    <button *ngIf="token" mat-button [matMenuTriggerFor]="userMenu">
       <mat-icon color="accent">person</mat-icon>
-      <span fxShow fxHide.xs> Samina Rahman Purba </span>
+      <span fxShow fxHide.xs> {{ token.userName }} </span>
     </button>
     <mat-menu
       #userMenu="matMenu"
@@ -21,7 +21,7 @@
       yPosition="above"
       [overlapTrigger]="false"
     >
-      <a mat-menu-item>
+      <a mat-menu-item (click)="logout()">
         <mat-icon color="accent">exit_to_app</mat-icon>
         <span>Log out</span>
       </a>
@@ -32,7 +32,7 @@
     <!-- Side nav -->
     <mat-sidenav
       #snav
-      [opened]="false"
+      [opened]="token && snav.opened"
       [mode]="'side'"
       [fixedInViewport]="true"
       fixedTopGap="56"
@@ -49,7 +49,7 @@
                 [(ngModel)]="searchString"
               />
             </form>
-            <mat-icon matSuffix>search</mat-icon>
+            <mat-icon color="accent" matSuffix>search</mat-icon>
           </mat-form-field>
         </div>
 
@@ -58,7 +58,7 @@
           <p mat-line>New Releases</p>
         </a>
 
-        <a mat-list-item routerLink="/favorites">
+        <a mat-list-item routerLink="/favourites">
           <mat-icon color="accent" mat-list-icon> favorite </mat-icon>
           <p mat-line>Favourites</p>
         </a>
@@ -71,12 +71,8 @@
         </a>
       </mat-nav-list>
     </mat-sidenav>
-
     <mat-sidenav-content class="sidenav-content">
-      <!-- Main content -->
       <router-outlet></router-outlet>
-      <!-- ------------ -->
-
       <div class="bottom-spacer"></div>
     </mat-sidenav-content>
   </mat-sidenav-container>

@@ -1,6 +1,4 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-
-//Services
 import { MusicDataService } from "../music-data.service";
 @Component({
   selector: "app-favorites",
