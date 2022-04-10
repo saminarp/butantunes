@@ -1,0 +1,83 @@
+<div class="navbar-container">
+  <!-- Top navbar -->
+  <mat-toolbar class="navbar" color="primary">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon color="accent">menu</mat-icon>
+    </button>
+
+    <a class="navbar-brand" matTooltip="Home" routerLink="/">
+      <h1>Seneca Music</h1>
+    </a>
+
+    <span class="navbar-spacer"></span>
+
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <mat-icon color="accent">person</mat-icon>
+      <span fxShow fxHide.xs> Samina Rahman Purba </span>
+    </button>
+    <mat-menu
+      #userMenu="matMenu"
+      xPosition="before"
+      yPosition="above"
+      [overlapTrigger]="false"
+    >
+      <a mat-menu-item>
+        <mat-icon color="accent">exit_to_app</mat-icon>
+        <span>Log out</span>
+      </a>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <!-- Side nav -->
+    <mat-sidenav
+      #snav
+      [opened]="false"
+      [mode]="'side'"
+      [fixedInViewport]="true"
+      fixedTopGap="56"
+    >
+      <mat-nav-list>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Artist</mat-label>
+            <form (ngSubmit)="handleSearch()">
+              <input
+                matInput
+                type="text"
+                name="searchString"
+                [(ngModel)]="searchString"
+              />
+            </form>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <a mat-list-item routerLink="/new-releases">
+          <mat-icon color="accent" mat-list-icon> library_music </mat-icon>
+          <p mat-line>New Releases</p>
+        </a>
+
+        <a mat-list-item routerLink="/favorites">
+          <mat-icon color="accent" mat-list-icon> favorite </mat-icon>
+          <p mat-line>Favourites</p>
+        </a>
+
+        <mat-divider></mat-divider>
+
+        <a id="push-bottom" mat-list-item routerLink="/about">
+          <mat-icon color="accent" mat-list-icon> info_outline </mat-icon>
+          <p mat-line>About</p>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+      <!-- Main content -->
+      <router-outlet></router-outlet>
+      <!-- ------------ -->
+
+      <div class="bottom-spacer"></div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
