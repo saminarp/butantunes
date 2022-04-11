@@ -1,6 +1,5 @@
 <mat-card>
   <mat-card-content>
-    {{ registerUser | json }}
     <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
       <h2>Register</h2>
       <mat-error *ngIf="warning"> {{ warning }}</mat-error
